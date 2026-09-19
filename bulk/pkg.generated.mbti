@@ -1,0 +1,59 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "oyjh0381/moonscim/bulk"
+
+import {
+  "moonbitlang/core/debug",
+  "oyjh0381/moonscim/value",
+}
+
+// Values
+pub fn bulk_operation(BulkMethod, String, bulk_id? : String, version? : String, data? : @value.Value) -> BulkOperation
+
+pub fn bulk_request(Array[BulkOperation], fail_on_errors? : Int) -> BulkRequest
+
+pub fn validate_bulk_request(BulkRequest, max_operations? : Int) -> BulkIssues
+
+// Errors
+
+// Types and methods
+pub(all) struct BulkIssue {
+  code : String
+  operation : Int?
+  message : String
+} derive(Eq, @debug.Debug)
+
+pub struct BulkIssues(Array[BulkIssue]) derive(Eq, @debug.Debug)
+pub fn BulkIssues::has_code(Self, String) -> Bool
+pub fn BulkIssues::items(Self) -> Array[BulkIssue]
+pub fn BulkIssues::length(Self) -> Int
+
+pub(all) enum BulkMethod {
+  Post
+  Put
+  Patch
+  Delete
+} derive(Eq, @debug.Debug)
+
+pub struct BulkOperation {
+  http_method : BulkMethod
+  path : String
+  bulk_id : String?
+  version : String?
+  data : @value.Value?
+} derive(Eq, @debug.Debug)
+pub fn BulkOperation::bulk_id(Self) -> String?
+pub fn BulkOperation::bulk_method(Self) -> BulkMethod
+pub fn BulkOperation::data(Self) -> @value.Value?
+pub fn BulkOperation::path(Self) -> String
+pub fn BulkOperation::version(Self) -> String?
+
+pub struct BulkRequest {
+  operations : Array[BulkOperation]
+  fail_on_errors : Int?
+} derive(Eq, @debug.Debug)
+pub fn BulkRequest::fail_on_errors(Self) -> Int?
+pub fn BulkRequest::operations(Self) -> Array[BulkOperation]
+
+// Type aliases
+
+// Traits
