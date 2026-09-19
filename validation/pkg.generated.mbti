@@ -10,6 +10,8 @@ import {
 // Values
 pub fn validate_resource(@schema.SchemaRegistry, String, @value.Object, ValidationOperation) -> ValidationReport
 
+pub fn validate_transition(@schema.SchemaRegistry, String, @value.Object, @value.Object, ValidationOperation) -> ValidationReport
+
 // Errors
 
 // Types and methods

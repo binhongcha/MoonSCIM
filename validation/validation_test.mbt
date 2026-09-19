@@ -17,6 +17,21 @@ fn test_registry() -> @schema.SchemaRegistry {
     [
       @schema.attribute("userName", @schema.StringType, required=true),
       @schema.attribute("active", @schema.BooleanType),
+      @schema.attribute(
+        "internalCode",
+        @schema.StringType,
+        mutability=@schema.ReadOnly,
+      ),
+      @schema.attribute(
+        "employeeNumber",
+        @schema.StringType,
+        mutability=@schema.Immutable,
+      ),
+      @schema.attribute(
+        "password",
+        @schema.StringType,
+        mutability=@schema.WriteOnly,
+      ),
       email,
     ],
   )
@@ -137,4 +152,62 @@ test "rejects unknown top-level attributes" {
     Create,
   )
   assert_true(report.has_code("RESOURCE_UNKNOWN_ATTRIBUTE"))
+}
+
+///|
+test "operation context enforces read-only and write-only attributes" {
+  let create_report = validate_resource(
+    test_registry(),
+    "urn:ietf:params:scim:schemas:core:2.0:User",
+    user([
+      @value.field("userName", @value.string("alice")),
+      @value.field("internalCode", @value.string("server-owned")),
+    ]),
+    Create,
+  )
+  let response_report = validate_resource(
+    test_registry(),
+    "urn:ietf:params:scim:schemas:core:2.0:User",
+    user([
+      @value.field("userName", @value.string("alice")),
+      @value.field("password", @value.string("secret")),
+    ]),
+    Response,
+  )
+  assert_true(create_report.has_code("RESOURCE_READ_ONLY"))
+  assert_true(response_report.has_code("RESOURCE_WRITE_ONLY"))
+}
+
+///|
+test "transition validation protects assigned immutable attributes" {
+  let before = user([
+    @value.field("userName", @value.string("alice")),
+    @value.field("employeeNumber", @value.string("E-100")),
+  ])
+  let same = user([
+    @value.field("userName", @value.string("alice")),
+    @value.field("employeeNumber", @value.string("E-100")),
+  ])
+  let changed = user([
+    @value.field("userName", @value.string("alice")),
+    @value.field("employeeNumber", @value.string("E-200")),
+  ])
+  assert_true(
+    validate_transition(
+      test_registry(),
+      "urn:ietf:params:scim:schemas:core:2.0:User",
+      before,
+      same,
+      Replace,
+    ).is_valid(),
+  )
+  assert_true(
+    validate_transition(
+      test_registry(),
+      "urn:ietf:params:scim:schemas:core:2.0:User",
+      before,
+      changed,
+      Replace,
+    ).has_code("RESOURCE_IMMUTABLE"),
+  )
 }

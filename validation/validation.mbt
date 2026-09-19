@@ -79,9 +79,78 @@ pub fn validate_resource(
     diagnostics,
   )
   validate_object_against_schema(
-    registry, base_schema, resource, "", true, diagnostics,
+    registry, base_schema, resource, "", true, operation, diagnostics,
   )
   { operation, diagnostics, }
+}
+
+///|
+/// Validate an updated resource and compare immutable values with their prior
+/// assigned state. Immutable values may be assigned once but not changed or
+/// removed afterwards.
+pub fn validate_transition(
+  registry : @schema.SchemaRegistry,
+  base_schema_id : String,
+  before : @value.Object,
+  after : @value.Object,
+  operation : ValidationOperation,
+) -> ValidationReport {
+  let report = validate_resource(registry, base_schema_id, after, operation)
+  let diagnostics = report.diagnostics()
+  match registry.find(base_schema_id) {
+    Some(definition) =>
+      validate_immutable_attributes(
+        definition.attributes(),
+        before,
+        after,
+        "",
+        diagnostics,
+      )
+    None => ()
+  }
+  { operation, diagnostics, }
+}
+
+///|
+fn validate_immutable_attributes(
+  definitions : Array[@schema.AttributeDefinition],
+  before : @value.Object,
+  after : @value.Object,
+  prefix : String,
+  diagnostics : Array[Diagnostic],
+) -> Unit {
+  for definition in definitions {
+    let path = join_path(prefix, definition.name())
+    let old_value = before.get(definition.name())
+    let new_value = after.get(definition.name())
+    if definition.mutability() == @schema.Immutable &&
+      assigned(old_value) &&
+      old_value != new_value {
+      diagnostics.push(
+        diagnostic(
+          "RESOURCE_IMMUTABLE", path, "an assigned immutable attribute cannot be changed or removed",
+        ),
+      )
+    }
+    if definition.attribute_type() == @schema.ComplexType &&
+      !definition.multi_valued() {
+      match (old_value, new_value) {
+        (Some(old), Some(new)) =>
+          match (old.as_object(), new.as_object()) {
+            (Some(old_object), Some(new_object)) =>
+              validate_immutable_attributes(
+                definition.sub_attributes(),
+                old_object,
+                new_object,
+                path,
+                diagnostics,
+              )
+            _ => ()
+          }
+        _ => ()
+      }
+    }
+  }
 }
 
 ///|
@@ -161,6 +230,7 @@ fn validate_object_against_schema(
   object : @value.Object,
   prefix : String,
   allow_common : Bool,
+  operation : ValidationOperation,
   diagnostics : Array[Diagnostic],
 ) -> Unit {
   for attribute in definition.attributes() {
@@ -170,6 +240,24 @@ fn validate_object_against_schema(
       diagnostics.push(
         diagnostic(
           "RESOURCE_REQUIRED", path, "required attribute is unassigned",
+        ),
+      )
+    }
+    if assigned(actual) &&
+      operation != Response &&
+      attribute.mutability() == @schema.ReadOnly {
+      diagnostics.push(
+        diagnostic(
+          "RESOURCE_READ_ONLY", path, "read-only attribute cannot be supplied by a protocol write",
+        ),
+      )
+    }
+    if assigned(actual) &&
+      operation == Response &&
+      attribute.mutability() == @schema.WriteOnly {
+      diagnostics.push(
+        diagnostic(
+          "RESOURCE_WRITE_ONLY", path, "write-only attribute cannot appear in a response resource",
         ),
       )
     }
@@ -190,7 +278,7 @@ fn validate_object_against_schema(
         match item.value().as_object() {
           Some(extension_object) =>
             validate_object_against_schema(
-              registry, extension, extension_object, name, false, diagnostics,
+              registry, extension, extension_object, name, false, operation, diagnostics,
             )
           None =>
             diagnostics.push(
