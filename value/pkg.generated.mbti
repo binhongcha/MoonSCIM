@@ -1,0 +1,72 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "oyjh0381/moonscim/value"
+
+import {
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn boolean(Bool) -> Value
+
+pub fn field(String, Value) -> Field
+
+pub fn list(Array[Value]) -> Value
+
+pub fn null_value() -> Value
+
+pub fn number(Double) -> Value
+
+pub fn object(Array[Field]) -> Object
+
+pub fn object_value(Array[Field]) -> Value
+
+pub fn string(String) -> Value
+
+// Errors
+
+// Types and methods
+pub struct Field {
+  name : String
+  value : Value
+} derive(Eq, @debug.Debug)
+
+pub struct Object {
+  fields : Array[Field]
+} derive(Eq, @debug.Debug)
+pub fn Object::contains(Self, String) -> Bool
+pub fn Object::copy(Self) -> Self
+pub fn Object::entries(Self) -> Array[Field]
+pub fn Object::get(Self, String) -> Value?
+pub fn Object::is_empty(Self) -> Bool
+pub fn Object::length(Self) -> Int
+pub fn Object::names(Self) -> Array[String]
+pub fn Object::put(Self, String, Value) -> Self
+pub fn Object::remove(Self, String) -> Self
+
+pub enum Value {
+  Null
+  Boolean(Bool)
+  Number(Double)
+  String(String)
+  List(Array[Value])
+  Object(Object)
+} derive(Eq, @debug.Debug)
+pub fn Value::as_boolean(Self) -> Bool?
+pub fn Value::as_list(Self) -> Array[Self]?
+pub fn Value::as_number(Self) -> Double?
+pub fn Value::as_object(Self) -> Object?
+pub fn Value::as_string(Self) -> String?
+pub fn Value::kind(Self) -> ValueKind
+
+pub(all) enum ValueKind {
+  Null
+  Boolean
+  Number
+  String
+  List
+  Object
+} derive(Eq, @debug.Debug)
+
+// Type aliases
+
+// Traits
