@@ -1,0 +1,98 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "oyjh0381/moonscim/schema"
+
+import {
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn attribute(String, AttributeType, multi_valued? : Bool, description? : String, required? : Bool, case_exact? : Bool, canonical_values? : Array[String], mutability? : Mutability, returned? : Returned, uniqueness? : Uniqueness, reference_types? : Array[String]) -> AttributeDefinition
+
+pub fn complex_attribute(String, Array[AttributeDefinition], multi_valued? : Bool, description? : String, required? : Bool, mutability? : Mutability, returned? : Returned) -> AttributeDefinition
+
+pub fn schema(String, String, Array[AttributeDefinition], description? : String) -> Schema
+
+pub fn validate_attribute(AttributeDefinition) -> Array[SchemaIssue]
+
+pub fn validate_schema(Schema) -> Array[SchemaIssue]
+
+// Errors
+
+// Types and methods
+pub struct AttributeDefinition {
+  name : String
+  attribute_type : AttributeType
+  multi_valued : Bool
+  description : String
+  required : Bool
+  case_exact : Bool
+  canonical_values : Array[String]
+  mutability : Mutability
+  returned : Returned
+  uniqueness : Uniqueness
+  reference_types : Array[String]
+  sub_attributes : Array[AttributeDefinition]
+} derive(Eq, @debug.Debug)
+pub fn AttributeDefinition::attribute_type(Self) -> AttributeType
+pub fn AttributeDefinition::canonical_values(Self) -> Array[String]
+pub fn AttributeDefinition::case_exact(Self) -> Bool
+pub fn AttributeDefinition::multi_valued(Self) -> Bool
+pub fn AttributeDefinition::mutability(Self) -> Mutability
+pub fn AttributeDefinition::name(Self) -> String
+pub fn AttributeDefinition::reference_types(Self) -> Array[String]
+pub fn AttributeDefinition::required(Self) -> Bool
+pub fn AttributeDefinition::returned(Self) -> Returned
+pub fn AttributeDefinition::sub_attributes(Self) -> Array[Self]
+pub fn AttributeDefinition::uniqueness(Self) -> Uniqueness
+
+pub(all) enum AttributeType {
+  StringType
+  BooleanType
+  DecimalType
+  IntegerType
+  DateTimeType
+  ReferenceType
+  BinaryType
+  ComplexType
+} derive(Eq, @debug.Debug)
+
+pub(all) enum Mutability {
+  ReadOnly
+  ReadWrite
+  Immutable
+  WriteOnly
+} derive(Eq, @debug.Debug)
+
+pub(all) enum Returned {
+  Always
+  Never
+  Default
+  Request
+} derive(Eq, @debug.Debug)
+
+pub struct Schema {
+  id : String
+  name : String
+  description : String
+  attributes : Array[AttributeDefinition]
+} derive(Eq, @debug.Debug)
+pub fn Schema::attribute(Self, String) -> AttributeDefinition?
+pub fn Schema::attributes(Self) -> Array[AttributeDefinition]
+pub fn Schema::id(Self) -> String
+pub fn Schema::name(Self) -> String
+
+pub(all) struct SchemaIssue {
+  code : String
+  path : String
+  message : String
+} derive(Eq, @debug.Debug)
+
+pub(all) enum Uniqueness {
+  NoUniqueness
+  Server
+  Global
+} derive(Eq, @debug.Debug)
+
+// Type aliases
+
+// Traits
