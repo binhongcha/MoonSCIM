@@ -4,6 +4,7 @@ package "oyjh0381/moonscim/filter"
 import {
   "moonbitlang/core/debug",
   "oyjh0381/moonscim/path",
+  "oyjh0381/moonscim/value",
 }
 
 // Values
@@ -30,6 +31,7 @@ pub struct Filter {
   expression : FilterExpression
 } derive(Eq, @debug.Debug)
 pub fn Filter::expression(Self) -> FilterExpression
+pub fn Filter::matches(Self, @value.Object) -> Bool
 
 pub(all) enum FilterError {
   LexFailure(LexError)
