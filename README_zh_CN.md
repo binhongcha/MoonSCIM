@@ -54,9 +54,11 @@ moon run cmd/main --target native -- match 'active eq true' '{"active":true}'
 moon run examples/saas_provisioning --target native
 moon run examples/hr_lifecycle --target native
 moon run examples/group_sync --target native
+moon run benchmarks/query_10k --target native
 ```
 
 三个示例分别证明 SaaS 入职配置、HR 离职变更和含前向依赖的群组同步可以实际执行，而不是仅停留在接口说明中。
+`query_10k` 还提供 10,000 条内存资源的过滤、稳定排序、投影和分页性能冒烟工作负载。
 
 ## 支持范围
 
@@ -84,7 +86,7 @@ moon info
 python tools/count_moonbit_loc.py --minimum 4000
 ```
 
-当前仓库在 wasm、wasm-gc、JavaScript、Native 四个目标上各有 87 项测试通过，有效非注释 MoonBit 代码超过 5,000 行，并通过 CI 校验格式、全目标检查、测试、Native 构建、可执行示例、生成接口及 4,000 行规模门槛。
+当前仓库在 wasm、wasm-gc、JavaScript、Native 四个目标上各有 99 项测试通过，有效非注释 MoonBit 代码超过 5,000 行，并通过 CI 校验格式、全目标检查、测试、Native 构建、可执行示例、生成接口及 4,000 行规模门槛。
 
 MoonSCIM 是依据 IETF RFC 7643、7644、9865 行为重新实现的原创项目，不移植其他 SCIM SDK。选题检索证据见 [`docs/ecosystem-review.md`](docs/ecosystem-review.md)，发布前会再次检索 mooncakes.io。
 

@@ -1,0 +1,8 @@
+import {
+  "oyjh0381/moonscim/query",
+  "oyjh0381/moonscim/value",
+}
+
+supported_targets = "+native"
+
+pkgtype(kind: "executable")

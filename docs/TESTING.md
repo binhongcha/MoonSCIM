@@ -21,9 +21,10 @@ moon run examples/saas_provisioning --target native
 moon run examples/hr_lifecycle --target native
 moon run examples/group_sync --target native
 moon run cmd/main --target native -- discover
+moon run benchmarks/query_10k --target native
 ```
 
-As of 2026-09-19, 87 tests pass on each of wasm, wasm-gc, JavaScript, and
+As of 2026-09-19, 99 tests pass on each of wasm, wasm-gc, JavaScript, and
 Native. The suite includes normal inputs, missing/empty values, malformed
 paths and expressions, type/cardinality errors, extension URNs, atomic failure,
 Bulk cycles and forward references, cursor/query mismatch, duplicate JSON
@@ -42,3 +43,8 @@ multi-valued attributes, the configured Bulk maximum, and codec budget edges.
 Record wall time and peak memory in the release issue; do not encode
 machine-specific thresholds in portable unit tests. Large production
 directories should benchmark a storage-pushdown adapter separately.
+
+`benchmarks/query_10k` is the reproducible reference workload: it creates
+10,000 resources, filters 5,000 active users, performs stable sorting and
+projection, and validates a 100-item page. It is a regression smoke test, not a
+claim about a production database or an absolute latency guarantee.

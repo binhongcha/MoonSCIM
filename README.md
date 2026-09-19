@@ -94,6 +94,7 @@ means schema-invalid input, and `4` is an unexpected serialization failure.
 moon run examples/saas_provisioning --target native
 moon run examples/hr_lifecycle --target native
 moon run examples/group_sync --target native
+moon run benchmarks/query_10k --target native
 ```
 
 - `saas_provisioning` validates a User, applies role/display-name PATCHes,
@@ -102,6 +103,8 @@ moon run examples/group_sync --target native
   validates the before/after mutability contract.
 - `group_sync` plans a forward-referencing Bulk request and resolves a new User
   identifier inside a Group membership.
+- `query_10k` is a reproducible performance smoke workload for filtering,
+  stable sorting, projection, and pagination over 10,000 in-memory resources.
 
 ## Package map
 
@@ -148,7 +151,7 @@ moon info
 python tools/count_moonbit_loc.py --minimum 4000
 ```
 
-The repository currently contains 87 passing tests on each of four targets and
+The repository currently contains 99 passing tests on each of four targets and
 more than 5,000 effective non-comment MoonBit lines. CI repeats formatting,
 portable checking, tests, Native builds, executable examples, generated API
 verification, and the 4,000-line project-scale gate.
