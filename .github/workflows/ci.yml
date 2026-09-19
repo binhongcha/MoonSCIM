@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  portable:
+    name: Portable (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: hustcer/setup-moonbit@v1.22
+      - run: moon version --all
+      - run: moon update
+      - run: moon fmt --check
+      - run: moon check --target all --deny-warn
+      - run: moon test --target wasm-gc --deny-warn
+      - run: moon test --target js --deny-warn
+      - run: moon test --target native --deny-warn
+      - run: moon build --target native --deny-warn
+
+  repository:
+    name: Repository contracts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: hustcer/setup-moonbit@v1.22
+      - run: moon update
+      - name: Verify committed package interfaces
+        run: |
+          moon info
+          git diff --exit-code
+      - name: Verify effective MoonBit scale
+        run: python tools/count_moonbit_loc.py --minimum 4000
