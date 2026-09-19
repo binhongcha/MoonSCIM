@@ -1,0 +1,45 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "oyjh0381/moonscim/patch"
+
+import {
+  "moonbitlang/core/debug",
+  "oyjh0381/moonscim/path",
+  "oyjh0381/moonscim/value",
+}
+
+// Values
+pub fn add(String, @value.Value) -> PatchOperation
+
+pub fn apply_patch(@value.Object, Array[PatchOperation]) -> Result[@value.Object, PatchError]
+
+pub fn raw_operation(PatchVerb, String, @value.Value?) -> PatchOperation
+
+pub fn remove(String) -> PatchOperation
+
+pub fn replace(String, @value.Value) -> PatchOperation
+
+// Errors
+
+// Types and methods
+pub(all) enum PatchError {
+  MissingValue(Int)
+  InvalidPatchPath(Int, @path.PathError)
+  TargetMissing(Int, String)
+  TargetType(Int, String)
+} derive(Eq, @debug.Debug)
+
+pub struct PatchOperation {
+  verb : PatchVerb
+  path : String
+  value : @value.Value?
+} derive(Eq, @debug.Debug)
+
+pub(all) enum PatchVerb {
+  Add
+  Replace
+  Remove
+} derive(Eq, @debug.Debug)
+
+// Type aliases
+
+// Traits
