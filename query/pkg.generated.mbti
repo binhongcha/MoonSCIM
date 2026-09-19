@@ -1,0 +1,23 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "oyjh0381/moonscim/query"
+
+import {
+  "moonbitlang/core/debug",
+  "oyjh0381/moonscim/path",
+  "oyjh0381/moonscim/value",
+}
+
+// Values
+pub fn project_attributes(@value.Object, Array[String], Array[String]) -> Result[@value.Object, ProjectionError]
+
+// Errors
+
+// Types and methods
+pub(all) enum ProjectionError {
+  ConflictingProjection
+  InvalidProjectionPath(String, @path.PathError)
+} derive(Eq, @debug.Debug)
+
+// Type aliases
+
+// Traits
