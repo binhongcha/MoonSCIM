@@ -1,0 +1,70 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "oyjh0381/moonscim/protocol"
+
+import {
+  "oyjh0381/moonscim/query",
+  "oyjh0381/moonscim/schema",
+  "oyjh0381/moonscim/value",
+}
+
+// Values
+pub fn authentication_scheme(String, String, description? : String, spec_uri? : String, documentation_uri? : String) -> AuthenticationScheme
+
+pub fn cursor_response(@query.CursorResponse) -> @value.Object
+
+pub fn error_response(Int, String, scim_type? : String) -> @value.Object
+
+pub fn error_schema_id() -> String
+
+pub fn list_response(@query.ListResponse) -> @value.Object
+
+pub fn list_response_schema_id() -> String
+
+pub fn resource_type_resource(String, String, String, description? : String, extensions? : Array[SchemaExtension]) -> @value.Object
+
+pub fn resource_type_schema_id() -> String
+
+pub fn schema_extension(String, required? : Bool) -> SchemaExtension
+
+pub fn schema_resource(@schema.Schema) -> @value.Object
+
+pub fn schema_resource_schema_id() -> String
+
+pub fn service_provider_config(patch_supported? : Bool, bulk_supported? : Bool, bulk_max_operations? : Int, bulk_max_payload_size? : Int, filter_supported? : Bool, filter_max_results? : Int, change_password_supported? : Bool, sort_supported? : Bool, etag_supported? : Bool, authentication_schemes? : Array[AuthenticationScheme]) -> ServiceProviderConfig
+
+pub fn service_provider_config_resource(ServiceProviderConfig) -> @value.Object
+
+pub fn service_provider_config_schema_id() -> String
+
+// Errors
+
+// Types and methods
+pub(all) struct AuthenticationScheme {
+  scheme_type : String
+  name : String
+  description : String
+  spec_uri : String
+  documentation_uri : String
+}
+
+pub(all) struct SchemaExtension {
+  schema : String
+  required : Bool
+}
+
+pub(all) struct ServiceProviderConfig {
+  patch_supported : Bool
+  bulk_supported : Bool
+  bulk_max_operations : Int
+  bulk_max_payload_size : Int
+  filter_supported : Bool
+  filter_max_results : Int
+  change_password_supported : Bool
+  sort_supported : Bool
+  etag_supported : Bool
+  authentication_schemes : Array[AuthenticationScheme]
+}
+
+// Type aliases
+
+// Traits

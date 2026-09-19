@@ -39,6 +39,7 @@ pub struct AttributeDefinition {
 pub fn AttributeDefinition::attribute_type(Self) -> AttributeType
 pub fn AttributeDefinition::canonical_values(Self) -> Array[String]
 pub fn AttributeDefinition::case_exact(Self) -> Bool
+pub fn AttributeDefinition::description(Self) -> String
 pub fn AttributeDefinition::multi_valued(Self) -> Bool
 pub fn AttributeDefinition::mutability(Self) -> Mutability
 pub fn AttributeDefinition::name(Self) -> String
@@ -99,6 +100,7 @@ pub struct Schema {
 } derive(Eq, @debug.Debug)
 pub fn Schema::attribute(Self, String) -> AttributeDefinition?
 pub fn Schema::attributes(Self) -> Array[AttributeDefinition]
+pub fn Schema::description(Self) -> String
 pub fn Schema::id(Self) -> String
 pub fn Schema::name(Self) -> String
 

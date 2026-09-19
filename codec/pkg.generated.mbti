@@ -1,0 +1,41 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "oyjh0381/moonscim/codec"
+
+import {
+  "moonbitlang/core/debug",
+  "oyjh0381/moonscim/value",
+}
+
+// Values
+pub fn codec_limits(max_chars? : Int, max_depth? : Int, max_nodes? : Int) -> CodecLimits
+
+pub fn decode_object(String, limits? : CodecLimits) -> Result[@value.Object, CodecError]
+
+pub fn decode_value(String, limits? : CodecLimits) -> Result[@value.Value, CodecError]
+
+pub fn encode_object(@value.Object) -> Result[String, CodecError]
+
+pub fn encode_value(@value.Value) -> Result[String, CodecError]
+
+// Errors
+
+// Types and methods
+pub(all) enum CodecError {
+  InvalidJson(String)
+  RootNotObject
+  InputTooLarge(Int, Int)
+  NestingTooDeep(Int)
+  TooManyNodes(Int)
+  DuplicateAttribute(String)
+  NonFiniteNumber
+} derive(Eq, @debug.Debug)
+
+pub struct CodecLimits {
+  max_chars : Int
+  max_depth : Int
+  max_nodes : Int
+}
+
+// Type aliases
+
+// Traits

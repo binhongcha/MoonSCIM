@@ -140,6 +140,11 @@ pub fn AttributeDefinition::name(self : AttributeDefinition) -> String {
 }
 
 ///|
+pub fn AttributeDefinition::description(self : AttributeDefinition) -> String {
+  self.description
+}
+
+///|
 pub fn AttributeDefinition::attribute_type(
   self : AttributeDefinition,
 ) -> AttributeType {
@@ -209,6 +214,11 @@ pub fn Schema::id(self : Schema) -> String {
 ///|
 pub fn Schema::name(self : Schema) -> String {
   self.name
+}
+
+///|
+pub fn Schema::description(self : Schema) -> String {
+  self.description
 }
 
 ///|
