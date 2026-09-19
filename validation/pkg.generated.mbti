@@ -1,0 +1,40 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "oyjh0381/moonscim/validation"
+
+import {
+  "moonbitlang/core/debug",
+  "oyjh0381/moonscim/schema",
+  "oyjh0381/moonscim/value",
+}
+
+// Values
+pub fn validate_resource(@schema.SchemaRegistry, String, @value.Object, ValidationOperation) -> ValidationReport
+
+// Errors
+
+// Types and methods
+pub(all) struct Diagnostic {
+  code : String
+  path : String
+  message : String
+} derive(Eq, @debug.Debug)
+
+pub(all) enum ValidationOperation {
+  Create
+  Replace
+  Patch
+  Response
+} derive(Eq, @debug.Debug)
+
+pub struct ValidationReport {
+  operation : ValidationOperation
+  diagnostics : Array[Diagnostic]
+} derive(Eq, @debug.Debug)
+pub fn ValidationReport::diagnostics(Self) -> Array[Diagnostic]
+pub fn ValidationReport::has_code(Self, String) -> Bool
+pub fn ValidationReport::is_valid(Self) -> Bool
+pub fn ValidationReport::operation(Self) -> ValidationOperation
+
+// Type aliases
+
+// Traits
