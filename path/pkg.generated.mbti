@@ -1,0 +1,35 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "oyjh0381/moonscim/path"
+
+import {
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn attribute_path(String?, String, String?) -> AttributePath
+
+pub fn parse_attribute_path(String) -> Result[AttributePath, PathError]
+
+// Errors
+
+// Types and methods
+pub(all) struct AttributePath {
+  schema_uri : String?
+  attribute : String
+  sub_attribute : String?
+} derive(Eq, @debug.Debug)
+pub fn AttributePath::equivalent(Self, Self) -> Bool
+pub fn AttributePath::qualified(Self) -> Bool
+pub fn AttributePath::to_string(Self) -> String
+
+pub(all) enum PathError {
+  EmptyPath
+  InvalidSchemaUri(String)
+  InvalidAttributeName(String)
+  InvalidSubAttributeName(String)
+  TooManySegments
+} derive(Eq, @debug.Debug)
+
+// Type aliases
+
+// Traits
