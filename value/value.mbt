@@ -66,6 +66,16 @@ pub fn field(name : String, value : Value) -> Field {
 }
 
 ///|
+pub fn Field::name(self : Field) -> String {
+  self.name
+}
+
+///|
+pub fn Field::value(self : Field) -> Value {
+  self.value
+}
+
+///|
 pub fn object(fields : Array[Field]) -> Object {
   let mut result = Object::{ fields: [], }
   for item in fields {
@@ -89,6 +99,11 @@ pub fn Value::kind(self : Value) -> ValueKind {
     List(_) => ValueKind::List
     Object(_) => ValueKind::Object
   }
+}
+
+///|
+pub fn Value::is_null(self : Value) -> Bool {
+  self is Null
 }
 
 ///|

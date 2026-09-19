@@ -46,3 +46,22 @@ test "nested values retain scalar and collection kinds" {
   )
   assert_eq(resource.get("missing"), Some(null_value()))
 }
+
+///|
+test "field snapshots expose names and values without exposing object storage" {
+  let resource = object([field("userName", string("alice"))])
+  let entries = resource.entries()
+  assert_eq(entries[0].name(), "userName")
+  assert_eq(entries[0].value(), string("alice"))
+  entries.push(field("active", boolean(true)))
+  assert_eq(resource.length(), 1)
+}
+
+///|
+test "value accessors reject mismatched kinds" {
+  assert_eq(string("alice").as_string(), Some("alice"))
+  assert_eq(string("alice").as_boolean(), None)
+  assert_eq(boolean(false).as_boolean(), Some(false))
+  assert_eq(list([]).as_list(), Some([]))
+  assert_true(null_value().is_null())
+}

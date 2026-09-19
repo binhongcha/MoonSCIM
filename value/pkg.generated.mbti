@@ -29,6 +29,8 @@ pub struct Field {
   name : String
   value : Value
 } derive(Eq, @debug.Debug)
+pub fn Field::name(Self) -> String
+pub fn Field::value(Self) -> Value
 
 pub struct Object {
   fields : Array[Field]
@@ -56,6 +58,7 @@ pub fn Value::as_list(Self) -> Array[Self]?
 pub fn Value::as_number(Self) -> Double?
 pub fn Value::as_object(Self) -> Object?
 pub fn Value::as_string(Self) -> String?
+pub fn Value::is_null(Self) -> Bool
 pub fn Value::kind(Self) -> ValueKind
 
 pub(all) enum ValueKind {
