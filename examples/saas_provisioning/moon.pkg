@@ -1,0 +1,11 @@
+import {
+  "oyjh0381/moonscim/codec",
+  "oyjh0381/moonscim/patch",
+  "oyjh0381/moonscim/protocol",
+  "oyjh0381/moonscim/query",
+  "oyjh0381/moonscim/standard",
+  "oyjh0381/moonscim/validation",
+  "oyjh0381/moonscim/value",
+}
+
+pkgtype(kind: "executable")
