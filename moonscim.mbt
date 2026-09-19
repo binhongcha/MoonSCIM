@@ -1,6 +1,6 @@
 ///|
-/// Semantic version of the first MoonSCIM development line.
-pub let version : String = "0.1.0-dev"
+/// Semantic version of this MoonSCIM release.
+pub let version : String = "0.1.0"
 
 ///|
 /// Stable name used in diagnostics and generated reports.
