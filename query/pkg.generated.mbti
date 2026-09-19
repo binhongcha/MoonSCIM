@@ -3,19 +3,52 @@ package "oyjh0381/moonscim/query"
 
 import {
   "moonbitlang/core/debug",
+  "oyjh0381/moonscim/filter",
   "oyjh0381/moonscim/path",
   "oyjh0381/moonscim/value",
 }
 
 // Values
+pub fn execute_query(Array[@value.Object], SearchRequest) -> Result[ListResponse, QueryError]
+
 pub fn project_attributes(@value.Object, Array[String], Array[String]) -> Result[@value.Object, ProjectionError]
+
+pub fn search_request(filter? : String, sort_by? : String, descending? : Bool, start_index? : Int, count? : Int, attributes? : Array[String], excluded_attributes? : Array[String]) -> Result[SearchRequest, QueryError]
 
 // Errors
 
 // Types and methods
+pub struct ListResponse {
+  total_results : Int
+  start_index : Int
+  items_per_page : Int
+  resources : Array[@value.Object]
+} derive(Eq, @debug.Debug)
+pub fn ListResponse::items_per_page(Self) -> Int
+pub fn ListResponse::resources(Self) -> Array[@value.Object]
+pub fn ListResponse::start_index(Self) -> Int
+pub fn ListResponse::total_results(Self) -> Int
+
 pub(all) enum ProjectionError {
   ConflictingProjection
   InvalidProjectionPath(String, @path.PathError)
+} derive(Eq, @debug.Debug)
+
+pub(all) enum QueryError {
+  InvalidPagination(String, Int)
+  InvalidFilter(@filter.FilterError)
+  InvalidSortPath(@path.PathError)
+  InvalidProjection(ProjectionError)
+} derive(Eq, @debug.Debug)
+
+pub struct SearchRequest {
+  filter : @filter.Filter?
+  sort_by : @path.AttributePath?
+  descending : Bool
+  start_index : Int
+  count : Int
+  attributes : Array[String]
+  excluded_attributes : Array[String]
 } derive(Eq, @debug.Debug)
 
 // Type aliases
