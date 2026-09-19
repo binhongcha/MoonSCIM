@@ -24,10 +24,11 @@ committed.
 ## Current status
 
 Milestones 1–12 are implemented. Milestone 13 has completed local functional
-tests, runnable scenarios, documentation, proposal, release metadata, and the
-scale/history gates. The remaining release-only steps are the final live
-mooncakes.io collision scan, public GitHub push with CI evidence, and
-mooncakes.io publication; they intentionally occur after local acceptance.
+tests, runnable scenarios, documentation, proposal, release metadata, the
+scale/history gates, and the final live mooncakes.io collision scan. The
+remaining release-only steps are the public GitHub push with CI evidence,
+Gitlink synchronization, and mooncakes.io publication; they intentionally occur
+after local acceptance.
 
 ## Quantitative gates
 

@@ -88,6 +88,6 @@ python tools/count_moonbit_loc.py --minimum 4000
 
 当前仓库在 wasm、wasm-gc、JavaScript、Native 四个目标上各有 99 项测试通过，有效非注释 MoonBit 代码超过 5,000 行，并通过 CI 校验格式、全目标检查、测试、Native 构建、可执行示例、生成接口及 4,000 行规模门槛。
 
-MoonSCIM 是依据 IETF RFC 7643、7644、9865 行为重新实现的原创项目，不移植其他 SCIM SDK。选题检索证据见 [`docs/ecosystem-review.md`](docs/ecosystem-review.md)，发布前会再次检索 mooncakes.io。
+MoonSCIM 是依据 IETF RFC 7643、7644、9865 行为重新实现的原创项目，不移植其他 SCIM SDK。选题检索证据见 [`docs/ecosystem-review.md`](docs/ecosystem-review.md)；2026-09-19 的发布前复查仍未发现直接重合的 SCIM 包。
 
 项目采用 Apache License 2.0；规范与对比来源见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。

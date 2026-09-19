@@ -161,8 +161,8 @@ verification, and the 4,000-line project-scale gate.
 MoonSCIM is an original MoonBit implementation based on public behavior in
 IETF RFC 7643, RFC 7644, and RFC 9865. It does not port or translate another
 SCIM SDK. The ecosystem comparison that selected this project is recorded in
-[`docs/ecosystem-review.md`](docs/ecosystem-review.md) and must be repeated
-before registry publication.
+[`docs/ecosystem-review.md`](docs/ecosystem-review.md); its publication recheck
+on 2026-09-19 still found no directly overlapping SCIM package.
 
 The public API follows semantic versioning. Version 0.1 may still refine names
 before 1.0; behavior changes are documented in [CHANGELOG.md](CHANGELOG.md).

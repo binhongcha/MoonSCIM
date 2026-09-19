@@ -1,7 +1,6 @@
 # Ecosystem review
 
-Review date: 2026-09-19. Registry contents can change, so this review must be
-repeated immediately before publication.
+Initial review date: 2026-09-19. Publication recheck: 2026-09-19.
 
 ## Decision
 
@@ -57,7 +56,14 @@ and LDAP-to-SCIM gateways.
 
 ## Recheck gate
 
-Before `moon publish`, repeat every query above, inspect any candidate package's
-README and public interface, and record the date and outcome here. If a mature,
-functionally overlapping SCIM core exists, publication stops until the project
-has a defensible independent contribution; renaming is not sufficient.
+Immediately before release, the official API queries above were repeated. The
+SCIM name, full name, RFC 7643/7644/9865, SCIM filter/PATCH/Bulk/cursor terms,
+and identity/user provisioning returned no matching SCIM package. The API's
+fallback results for `identity provisioning` and `directory sync` had zero
+matched package count or matched filesystem words only. `hbYlj/moonldap@0.3.0`
+remains the nearest project and still describes an LDAPv3/ASN.1 BER client,
+not SCIM JSON schema, PATCH, Bulk, discovery, or RFC 9865 behavior.
+
+No mature, functionally overlapping SCIM core was found in this recheck. A
+future release must repeat the same search; renaming alone is never an adequate
+response to a newly discovered overlap.
