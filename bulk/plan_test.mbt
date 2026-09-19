@@ -101,3 +101,57 @@ test "resolution fails rather than leaking unresolved placeholders" {
     resolve_bulk_operation(operation, []) is Err(MissingResolution("missing")),
   )
 }
+
+///|
+test "planner rejects an invalid request before dependency analysis" {
+  let invalid = bulk_request([bulk_operation(Post, "/Users")])
+  match plan_bulk(invalid) {
+    Err(InvalidBulkRequest(issues)) => {
+      assert_true(issues.has_code("BULK_DATA_REQUIRED"))
+      let snapshot = issues.items()
+      assert_eq(snapshot.length(), 1)
+    }
+    _ => abort("expected InvalidBulkRequest")
+  }
+}
+
+///|
+test "resolution handles no-data operations and nested lists" {
+  let deleted = resolve_bulk_operation(
+    bulk_operation(Delete, "/Users/bulkId:user"),
+    [bulk_resolution("user", "u-1")],
+  ).unwrap()
+  assert_eq(deleted.path(), "/Users/u-1")
+  assert_eq(deleted.data(), None)
+  let nested = bulk_operation(
+    Patch,
+    "/Groups/1",
+    data=@value.list([
+      @value.object_value([@value.field("value", @value.string("bulkId:user"))]),
+      @value.string("literal"),
+    ]),
+  )
+  let resolved = resolve_bulk_operation(nested, [bulk_resolution("user", "u-1")])
+    .unwrap()
+    .data()
+    .unwrap()
+    .as_list()
+    .unwrap()
+  assert_eq(
+    resolved[0].as_object().unwrap().get("value"),
+    Some(@value.string("u-1")),
+  )
+  assert_eq(resolved[1], @value.string("literal"))
+}
+
+///|
+test "missing resolution inside nested data is reported" {
+  let operation = bulk_operation(
+    Patch,
+    "/Groups/1",
+    data=@value.list([@value.string("bulkId:missing")]),
+  )
+  assert_true(
+    resolve_bulk_operation(operation, []) is Err(MissingResolution("missing")),
+  )
+}

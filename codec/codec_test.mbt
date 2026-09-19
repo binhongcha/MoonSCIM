@@ -84,3 +84,52 @@ test "arbitrary JSON values use the same bounded conversion" {
     ]),
   )
 }
+
+///|
+test "empty containers whitespace and escaped text round trip" {
+  let decoded = decode_value(
+    "  {\"emptyObject\":{},\"emptyList\":[],\"escaped\":\"line\\nquote\\\"\"}  ",
+  ).unwrap()
+  let encoded = encode_value(decoded).unwrap()
+  assert_eq(decode_value(encoded), Ok(decoded))
+}
+
+///|
+test "duplicate detection compares decoded attribute spellings" {
+  assert_eq(
+    decode_object("{\"user\\u004eame\":\"alice\",\"USERNAME\":\"mallory\"}"),
+    Err(DuplicateAttribute("USERNAME")),
+  )
+}
+
+///|
+test "representative malformed documents return typed errors" {
+  for
+    document in [
+      "", "   ", "{} trailing", "{]", "{\"a\" 1}", "[1,]", "\"unterminated", "{\"x\":\"\\q\"}",
+    ] {
+    assert_true(decode_value(document) is Err(InvalidJson(_)))
+  }
+}
+
+///|
+test "object nesting uses the same depth budget as arrays" {
+  assert_eq(
+    decode_value("{\"a\":{\"b\":0}}", limits=codec_limits(max_depth=1)),
+    Err(NestingTooDeep(2)),
+  )
+}
+
+///|
+test "nonfinite numbers cannot hide inside collections" {
+  assert_eq(
+    encode_value(@value.list([@value.number(1.0 / 0.0)])),
+    Err(NonFiniteNumber),
+  )
+  assert_eq(
+    encode_object(
+      @value.object([@value.field("bad", @value.number(-1.0 / 0.0))]),
+    ),
+    Err(NonFiniteNumber),
+  )
+}
