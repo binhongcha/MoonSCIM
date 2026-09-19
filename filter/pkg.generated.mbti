@@ -1,0 +1,55 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "oyjh0381/moonscim/filter"
+
+import {
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn lex_filter(String) -> Result[Array[Token], LexError]
+
+// Errors
+
+// Types and methods
+pub(all) enum LexError {
+  InvalidToken(Int, String)
+  UnterminatedString(Int)
+  InvalidEscape(Int, Char)
+} derive(Eq, @debug.Debug)
+
+pub struct Token {
+  kind : TokenKind
+  offset : Int
+} derive(Eq, @debug.Debug)
+pub fn Token::kind(Self) -> TokenKind
+pub fn Token::offset(Self) -> Int
+
+pub(all) enum TokenKind {
+  LeftParen
+  RightParen
+  LeftBracket
+  RightBracket
+  Identifier(String)
+  StringValue(String)
+  NumberValue(String)
+  BooleanValue(Bool)
+  NullValue
+  Eq
+  Ne
+  Co
+  Sw
+  Ew
+  Gt
+  Ge
+  Lt
+  Le
+  Pr
+  And
+  Or
+  Not
+  End
+} derive(Eq, @debug.Debug)
+
+// Type aliases
+
+// Traits
