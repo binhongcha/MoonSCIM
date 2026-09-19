@@ -8,6 +8,10 @@ test "parses simple and sub-attribute paths" {
     parse_attribute_path("name.givenName"),
     Ok(attribute_path(None, "name", Some("givenName"))),
   )
+  assert_eq(
+    parse_attribute_path("members.$ref"),
+    Ok(attribute_path(None, "members", Some("$ref"))),
+  )
 }
 
 ///|

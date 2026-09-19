@@ -116,6 +116,9 @@ fn valid_attribute_name(value : String) -> Bool {
   if value.is_empty() {
     return false
   }
+  if value.to_lower() == "$ref" {
+    return true
+  }
   for index, character in value {
     if index == 0 {
       if !character.is_ascii_alphabetic() {
