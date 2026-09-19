@@ -8,6 +8,13 @@ versioning.
 - Publication metadata and external interoperability fixtures will be added
   after the local acceptance review and final mooncakes.io collision check.
 
+## [0.1.1] - 2026-09-19
+
+### Changed
+
+- Recreated the public repository with release ownership and commit attribution
+  aligned to `binhongcha`; the public API and runtime behavior are unchanged.
+
 ## [0.1.0] - 2026-09-19
 
 ### Added
@@ -23,5 +30,6 @@ versioning.
 - Native validation/filter/discovery CLI, three runnable scenarios, four-target
   CI, security/architecture documentation, and Apache-2.0 licensing.
 
-[Unreleased]: https://github.com/binhongcha/MoonSCIM/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/binhongcha/MoonSCIM/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/binhongcha/MoonSCIM/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/binhongcha/MoonSCIM/releases/tag/v0.1.0
