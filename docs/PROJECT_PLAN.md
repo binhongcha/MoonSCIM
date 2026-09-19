@@ -21,6 +21,14 @@ committed.
 13. Conformance fixtures, fuzz/property checks, performance baselines, docs,
     proposal, release metadata, and final acceptance review.
 
+## Current status
+
+Milestones 1–12 are implemented. Milestone 13 has completed local functional
+tests, runnable scenarios, documentation, proposal, release metadata, and the
+scale/history gates. The remaining release-only steps are the final live
+mooncakes.io collision scan, public GitHub push with CI evidence, and
+mooncakes.io publication; they intentionally occur after local acceptance.
+
 ## Quantitative gates
 
 - More than 4,000 effective non-comment MoonBit lines from real functionality.

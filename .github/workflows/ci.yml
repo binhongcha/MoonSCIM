@@ -22,10 +22,18 @@ jobs:
       - run: moon update
       - run: moon fmt --check
       - run: moon check --target all --deny-warn
+      - run: moon test --target wasm --deny-warn
       - run: moon test --target wasm-gc --deny-warn
       - run: moon test --target js --deny-warn
       - run: moon test --target native --deny-warn
       - run: moon build --target native --deny-warn
+      - name: Run executable scenarios
+        run: |
+          moon run examples/saas_provisioning --target native
+          moon run examples/hr_lifecycle --target native
+          moon run examples/group_sync --target native
+          moon run cmd/main --target native -- version
+          moon run cmd/main --target native -- discover
 
   repository:
     name: Repository contracts
