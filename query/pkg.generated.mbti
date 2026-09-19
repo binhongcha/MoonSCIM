@@ -9,6 +9,8 @@ import {
 }
 
 // Values
+pub fn execute_cursor_query(Array[@value.Object], SearchRequest, String?) -> Result[CursorResponse, QueryError]
+
 pub fn execute_query(Array[@value.Object], SearchRequest) -> Result[ListResponse, QueryError]
 
 pub fn project_attributes(@value.Object, Array[String], Array[String]) -> Result[@value.Object, ProjectionError]
@@ -18,6 +20,19 @@ pub fn search_request(filter? : String, sort_by? : String, descending? : Bool, s
 // Errors
 
 // Types and methods
+pub struct CursorResponse {
+  total_results : Int
+  items_per_page : Int
+  resources : Array[@value.Object]
+  next_cursor : String?
+  previous_cursor : String?
+} derive(Eq, @debug.Debug)
+pub fn CursorResponse::items_per_page(Self) -> Int
+pub fn CursorResponse::next_cursor(Self) -> String?
+pub fn CursorResponse::previous_cursor(Self) -> String?
+pub fn CursorResponse::resources(Self) -> Array[@value.Object]
+pub fn CursorResponse::total_results(Self) -> Int
+
 pub struct ListResponse {
   total_results : Int
   start_index : Int
@@ -39,10 +54,14 @@ pub(all) enum QueryError {
   InvalidFilter(@filter.FilterError)
   InvalidSortPath(@path.PathError)
   InvalidProjection(ProjectionError)
+  InvalidCursor(String)
+  CursorQueryMismatch
 } derive(Eq, @debug.Debug)
 
 pub struct SearchRequest {
+  filter_source : String
   filter : @filter.Filter?
+  sort_source : String
   sort_by : @path.AttributePath?
   descending : Bool
   start_index : Int

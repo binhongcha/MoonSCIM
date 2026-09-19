@@ -4,11 +4,15 @@ pub(all) enum QueryError {
   InvalidFilter(@filter.FilterError)
   InvalidSortPath(@path.PathError)
   InvalidProjection(ProjectionError)
+  InvalidCursor(String)
+  CursorQueryMismatch
 } derive(Debug, Eq)
 
 ///|
 pub struct SearchRequest {
+  filter_source : String
   filter : @filter.Filter?
+  sort_source : String
   sort_by : @path.AttributePath?
   descending : Bool
   start_index : Int
@@ -67,7 +71,9 @@ pub fn search_request(
     }
   }
   Ok({
+    filter_source: filter,
     filter: compiled_filter,
+    sort_source: sort_by,
     sort_by: parsed_sort,
     descending,
     start_index,
