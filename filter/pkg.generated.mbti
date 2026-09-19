@@ -3,18 +3,63 @@ package "oyjh0381/moonscim/filter"
 
 import {
   "moonbitlang/core/debug",
+  "oyjh0381/moonscim/path",
 }
 
 // Values
+pub fn compile_filter(String) -> Result[Filter, FilterError]
+
 pub fn lex_filter(String) -> Result[Array[Token], LexError]
 
 // Errors
 
 // Types and methods
+pub(all) enum ComparisonOperator {
+  EqOp
+  NeOp
+  CoOp
+  SwOp
+  EwOp
+  GtOp
+  GeOp
+  LtOp
+  LeOp
+} derive(Eq, @debug.Debug)
+
+pub struct Filter {
+  expression : FilterExpression
+} derive(Eq, @debug.Debug)
+pub fn Filter::expression(Self) -> FilterExpression
+
+pub(all) enum FilterError {
+  LexFailure(LexError)
+  EmptyFilter
+  UnexpectedToken(Int, String)
+  TrailingToken(Int)
+  InvalidAttributePath(Int, @path.PathError)
+} derive(Eq, @debug.Debug)
+
+pub(all) enum FilterExpression {
+  Present(@path.AttributePath)
+  Compare(@path.AttributePath, ComparisonOperator, Literal)
+  ValuePathPresent(@path.AttributePath, FilterExpression, String?)
+  ValuePathCompare(@path.AttributePath, FilterExpression, String?, ComparisonOperator, Literal)
+  AndExpr(FilterExpression, FilterExpression)
+  OrExpr(FilterExpression, FilterExpression)
+  NotExpr(FilterExpression)
+} derive(Eq, @debug.Debug)
+
 pub(all) enum LexError {
   InvalidToken(Int, String)
   UnterminatedString(Int)
   InvalidEscape(Int, Char)
+} derive(Eq, @debug.Debug)
+
+pub(all) enum Literal {
+  StringLiteral(String)
+  NumberLiteral(String)
+  BooleanLiteral(Bool)
+  NullLiteral
 } derive(Eq, @debug.Debug)
 
 pub struct Token {
