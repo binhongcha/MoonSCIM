@@ -24,6 +24,7 @@ pub fn replace(String, @value.Value) -> PatchOperation
 pub(all) enum PatchError {
   MissingValue(Int)
   InvalidPatchPath(Int, @path.PathError)
+  InvalidFilteredPath(Int, String)
   TargetMissing(Int, String)
   TargetType(Int, String)
 } derive(Eq, @debug.Debug)

@@ -1,4 +1,5 @@
 import {
+  "oyjh0381/moonscim/filter",
   "oyjh0381/moonscim/path",
   "oyjh0381/moonscim/value",
 }

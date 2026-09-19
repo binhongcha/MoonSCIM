@@ -16,6 +16,7 @@ pub struct PatchOperation {
 pub(all) enum PatchError {
   MissingValue(Int)
   InvalidPatchPath(Int, @path.PathError)
+  InvalidFilteredPath(Int, String)
   TargetMissing(Int, String)
   TargetType(Int, String)
 } derive(Debug, Eq)
@@ -56,13 +57,20 @@ pub fn apply_patch(
     if operation.verb != Remove && operation.value is None {
       return Err(MissingValue(index))
     }
-    let path = match @path.parse_attribute_path(operation.path) {
-      Ok(value) => value
-      Err(error) => return Err(InvalidPatchPath(index, error))
-    }
-    current = match apply_one(current, operation, path, index) {
-      Ok(value) => value
-      Err(error) => return Err(error)
+    if operation.path.contains("[") || operation.path.contains("]") {
+      current = match apply_filtered_operation(current, operation, index) {
+        Ok(value) => value
+        Err(error) => return Err(error)
+      }
+    } else {
+      let path = match @path.parse_attribute_path(operation.path) {
+        Ok(value) => value
+        Err(error) => return Err(InvalidPatchPath(index, error))
+      }
+      current = match apply_one(current, operation, path, index) {
+        Ok(value) => value
+        Err(error) => return Err(error)
+      }
     }
   }
   Ok(current)
