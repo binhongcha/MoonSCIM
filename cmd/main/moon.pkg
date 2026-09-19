@@ -1,9 +1,9 @@
 import {
-  "oyjh0381/moonscim/codec",
-  "oyjh0381/moonscim/filter",
-  "oyjh0381/moonscim/protocol",
-  "oyjh0381/moonscim/standard",
-  "oyjh0381/moonscim/validation",
+  "binhongcha/moonscim/codec",
+  "binhongcha/moonscim/filter",
+  "binhongcha/moonscim/protocol",
+  "binhongcha/moonscim/standard",
+  "binhongcha/moonscim/validation",
   "moonbitlang/core/debug",
   "moonbitlang/core/env",
 }

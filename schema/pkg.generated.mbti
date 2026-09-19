@@ -1,9 +1,9 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "oyjh0381/moonscim/schema"
+package "binhongcha/moonscim/schema"
 
 import {
+  "binhongcha/moonscim/path",
   "moonbitlang/core/debug",
-  "oyjh0381/moonscim/path",
 }
 
 // Values

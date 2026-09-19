@@ -23,5 +23,5 @@ versioning.
 - Native validation/filter/discovery CLI, three runnable scenarios, four-target
   CI, security/architecture documentation, and Apache-2.0 licensing.
 
-[Unreleased]: https://github.com/oyjh0381/MoonSCIM/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/oyjh0381/MoonSCIM/releases/tag/v0.1.0
+[Unreleased]: https://github.com/binhongcha/MoonSCIM/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/binhongcha/MoonSCIM/releases/tag/v0.1.0

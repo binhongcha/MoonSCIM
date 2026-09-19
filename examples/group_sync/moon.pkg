@@ -1,7 +1,7 @@
 import {
-  "oyjh0381/moonscim/bulk",
-  "oyjh0381/moonscim/codec",
-  "oyjh0381/moonscim/value",
+  "binhongcha/moonscim/bulk",
+  "binhongcha/moonscim/codec",
+  "binhongcha/moonscim/value",
 }
 
 pkgtype(kind: "executable")

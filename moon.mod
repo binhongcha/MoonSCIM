@@ -9,13 +9,13 @@
 //   "moonbitlang/x@0.4.6",
 // }
 
-name = "oyjh0381/moonscim"
+name = "binhongcha/moonscim"
 
 version = "0.1.0"
 
 readme = "README.md"
 
-repository = "https://github.com/oyjh0381/MoonSCIM"
+repository = "https://github.com/binhongcha/MoonSCIM"
 
 license = "Apache-2.0"
 

@@ -1,9 +1,9 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "oyjh0381/moonscim/codec"
+package "binhongcha/moonscim/codec"
 
 import {
+  "binhongcha/moonscim/value",
   "moonbitlang/core/debug",
-  "oyjh0381/moonscim/value",
 }
 
 // Values

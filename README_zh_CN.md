@@ -22,7 +22,7 @@ SCIM 用于在不同系统之间自动同步身份。MoonSCIM 可服务于员工
 ## 快速开始
 
 ```sh
-git clone https://github.com/oyjh0381/MoonSCIM.git
+git clone https://github.com/binhongcha/MoonSCIM.git
 cd MoonSCIM
 moon check --target all --deny-warn
 moon test --target all --deny-warn

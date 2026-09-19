@@ -38,7 +38,7 @@ The project uses the current MoonBit toolchain and has no runtime package
 dependency outside `moonbitlang/core`.
 
 ```sh
-git clone https://github.com/oyjh0381/MoonSCIM.git
+git clone https://github.com/binhongcha/MoonSCIM.git
 cd MoonSCIM
 moon check --target all --deny-warn
 moon test --target all --deny-warn

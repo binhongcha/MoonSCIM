@@ -1,10 +1,10 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "oyjh0381/moonscim/validation"
+package "binhongcha/moonscim/validation"
 
 import {
+  "binhongcha/moonscim/schema",
+  "binhongcha/moonscim/value",
   "moonbitlang/core/debug",
-  "oyjh0381/moonscim/schema",
-  "oyjh0381/moonscim/value",
 }
 
 // Values

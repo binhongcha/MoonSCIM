@@ -1,10 +1,10 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "oyjh0381/moonscim/patch"
+package "binhongcha/moonscim/patch"
 
 import {
+  "binhongcha/moonscim/path",
+  "binhongcha/moonscim/value",
   "moonbitlang/core/debug",
-  "oyjh0381/moonscim/path",
-  "oyjh0381/moonscim/value",
 }
 
 // Values

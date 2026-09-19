@@ -1,6 +1,6 @@
 import {
-  "oyjh0381/moonscim/filter",
-  "oyjh0381/moonscim/path",
-  "oyjh0381/moonscim/value",
+  "binhongcha/moonscim/filter",
+  "binhongcha/moonscim/path",
+  "binhongcha/moonscim/value",
   "moonbitlang/core/string",
 }

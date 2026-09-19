@@ -1,9 +1,9 @@
 import {
-  "oyjh0381/moonscim/codec",
-  "oyjh0381/moonscim/patch",
-  "oyjh0381/moonscim/standard",
-  "oyjh0381/moonscim/validation",
-  "oyjh0381/moonscim/value",
+  "binhongcha/moonscim/codec",
+  "binhongcha/moonscim/patch",
+  "binhongcha/moonscim/standard",
+  "binhongcha/moonscim/validation",
+  "binhongcha/moonscim/value",
 }
 
 pkgtype(kind: "executable")

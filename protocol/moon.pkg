@@ -1,5 +1,5 @@
 import {
-  "oyjh0381/moonscim/query",
-  "oyjh0381/moonscim/schema",
-  "oyjh0381/moonscim/value",
+  "binhongcha/moonscim/query",
+  "binhongcha/moonscim/schema",
+  "binhongcha/moonscim/value",
 }
