@@ -1,0 +1,15 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "oyjh0381/moonscim"
+
+// Values
+pub let product_name : String
+
+pub let version : String
+
+// Errors
+
+// Types and methods
+
+// Type aliases
+
+// Traits
