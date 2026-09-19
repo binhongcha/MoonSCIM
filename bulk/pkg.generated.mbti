@@ -11,6 +11,12 @@ pub fn bulk_operation(BulkMethod, String, bulk_id? : String, version? : String, 
 
 pub fn bulk_request(Array[BulkOperation], fail_on_errors? : Int) -> BulkRequest
 
+pub fn bulk_resolution(String, String) -> BulkResolution
+
+pub fn plan_bulk(BulkRequest) -> Result[BulkPlan, BulkPlanError]
+
+pub fn resolve_bulk_operation(BulkOperation, Array[BulkResolution]) -> Result[BulkOperation, BulkResolutionError]
+
 pub fn validate_bulk_request(BulkRequest, max_operations? : Int) -> BulkIssues
 
 // Errors
@@ -47,12 +53,34 @@ pub fn BulkOperation::data(Self) -> @value.Value?
 pub fn BulkOperation::path(Self) -> String
 pub fn BulkOperation::version(Self) -> String?
 
+pub struct BulkPlan {
+  ordered_operations : Array[BulkOperation]
+  source_indices : Array[Int]
+} derive(Eq, @debug.Debug)
+pub fn BulkPlan::ordered_operations(Self) -> Array[BulkOperation]
+pub fn BulkPlan::source_indices(Self) -> Array[Int]
+
+pub(all) enum BulkPlanError {
+  InvalidBulkRequest(BulkIssues)
+  UnknownBulkId(Int, String)
+  DependencyCycle(Array[String])
+} derive(Eq, @debug.Debug)
+
 pub struct BulkRequest {
   operations : Array[BulkOperation]
   fail_on_errors : Int?
 } derive(Eq, @debug.Debug)
 pub fn BulkRequest::fail_on_errors(Self) -> Int?
 pub fn BulkRequest::operations(Self) -> Array[BulkOperation]
+
+pub(all) struct BulkResolution {
+  bulk_id : String
+  resource_id : String
+} derive(Eq, @debug.Debug)
+
+pub(all) enum BulkResolutionError {
+  MissingResolution(String)
+} derive(Eq, @debug.Debug)
 
 // Type aliases
 
