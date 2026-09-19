@@ -3,6 +3,7 @@ package "oyjh0381/moonscim/schema"
 
 import {
   "moonbitlang/core/debug",
+  "oyjh0381/moonscim/path",
 }
 
 // Values
@@ -11,6 +12,8 @@ pub fn attribute(String, AttributeType, multi_valued? : Bool, description? : Str
 pub fn complex_attribute(String, Array[AttributeDefinition], multi_valued? : Bool, description? : String, required? : Bool, mutability? : Mutability, returned? : Returned) -> AttributeDefinition
 
 pub fn schema(String, String, Array[AttributeDefinition], description? : String) -> Schema
+
+pub fn schema_registry() -> SchemaRegistry
 
 pub fn validate_attribute(AttributeDefinition) -> Array[SchemaIssue]
 
@@ -63,6 +66,24 @@ pub(all) enum Mutability {
   WriteOnly
 } derive(Eq, @debug.Debug)
 
+pub(all) enum RegistryError {
+  InvalidSchema(String, Array[SchemaIssue])
+  DuplicateSchema(String)
+  UnknownSchema(String)
+  UnknownAttribute(String, String)
+  UnknownSubAttribute(String, String, String)
+} derive(Eq, @debug.Debug)
+
+pub struct ResolvedAttribute {
+  schema_id : String
+  attribute : AttributeDefinition
+  sub_attribute : AttributeDefinition?
+} derive(Eq, @debug.Debug)
+pub fn ResolvedAttribute::attribute(Self) -> AttributeDefinition
+pub fn ResolvedAttribute::leaf(Self) -> AttributeDefinition
+pub fn ResolvedAttribute::schema_id(Self) -> String
+pub fn ResolvedAttribute::sub_attribute(Self) -> AttributeDefinition?
+
 pub(all) enum Returned {
   Always
   Never
@@ -86,6 +107,15 @@ pub(all) struct SchemaIssue {
   path : String
   message : String
 } derive(Eq, @debug.Debug)
+
+pub struct SchemaRegistry {
+  schemas : Array[Schema]
+} derive(Eq, @debug.Debug)
+pub fn SchemaRegistry::find(Self, String) -> Schema?
+pub fn SchemaRegistry::length(Self) -> Int
+pub fn SchemaRegistry::register(Self, Schema) -> Result[Self, RegistryError]
+pub fn SchemaRegistry::resolve(Self, String, @path.AttributePath) -> Result[ResolvedAttribute, RegistryError]
+pub fn SchemaRegistry::schemas(Self) -> Array[Schema]
 
 pub(all) enum Uniqueness {
   NoUniqueness
